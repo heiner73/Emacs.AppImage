@@ -1,9 +1,9 @@
 language: C
-dist: trusty
+dist: xenial
 sudo: true
 
 env:
-  - RELEASE_VERSION=$(wget -q "https://ftp.gnu.org/pub/gnu/emacs/?C=M;O=D" -O - | grep -oe ">emacs-.*tar.gz" | head -n 1 | cut -d - -f 2 | sed -e 's|.tar.gz||g')
+  - RELEASE_VERSION=$(wget -q "https://ftp.gnu.org/pub/gnu/emacs/?C=M;O=D" -O - | grep -oe ">emacs-.*tar.gz" | grep 24 | head -n 1 | cut -d - -f 2 | sed -e 's|.tar.gz||g')
   
 script:
   - wget -c "http://ftpmirror.gnu.org/emacs/emacs-${RELEASE_VERSION}.tar.gz"
@@ -19,10 +19,10 @@ script:
 #  - sudo apt-get -y install squashfs-tools
   - bash -ex appimage.sh
   
-after_success:
-  - readlink -f .
-  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-  - bash upload.sh ../../../out/*.AppImage*
+#after_success:
+#  - readlink -f .
+#  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+#  - bash upload.sh ../../../out/*.AppImage*
 
 branches:
   except:

@@ -28,3 +28,12 @@ branches:
   except:
     - # Do not build tags that we create when we upload to GitHub Releases
     - /^(?i:continuous)$/
+
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: "/home/travis/out/Emacs-24.5.glibc2.17-x86_64.AppImage"
+  skip_cleanup: true
+  on:
+    tags: true
